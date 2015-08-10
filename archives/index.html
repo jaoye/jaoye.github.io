@@ -1,0 +1,462 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>归档 | JaoYE</title>
+  <meta name="author" content="JaoYE">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="JaoYE"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="JaoYE" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">JaoYE</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title">归档</h2>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-08-08T07:53:26.000Z"><a href="/2015/08/08/yii_note/">8月 8 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/08/08/yii_note/">Yii 手记</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h3 id="准备工作">准备工作</h3>
+<ol>
+<li>下载 Yii</li>
+<li>解压 Yii 将 framework 复制到网站根目录下</li>
+<li>下载 php5 </li>
+</ol>
+<h3 id="安装_Yii_应用">安装 Yii 应用</h3>
+<pre><code>yiic.bat webapp 'e:<span class="command">\web</span><span class="command">\html</span><span class="command">\webapp</span>'
+</code></pre><h3 id="配置_Yii">配置 Yii</h3>
+<p>打开 webapp\protected\config\main.php<br>解开 gii urlManager 注释   </p>
+<pre><code><span class="string">'modules'</span>=&gt;<span class="keyword">array</span>(
+    <span class="comment">// uncomment the following to enable the Gii tool</span>
+
+    <span class="string">'gii'</span>=&gt;<span class="keyword">array</span>(
+        <span class="string">'class'</span>=&gt;<span class="string">'system.gii.GiiModule'</span>,
+        <span class="string">'password'</span>=&gt;<span class="string">'demo'</span>,    <span class="comment">// 自行修改密码</span>
+        <span class="comment">// If removed, Gii defaults to localhost only. Edit carefully to taste.</span>
+        <span class="string">'ipFilters'</span>=&gt;<span class="keyword">array</span>(<span class="string">'127.0.0.1'</span>,<span class="string">'::1'</span>),
+    ),
+
+),
+
+<span class="string">'components'</span>=&gt;<span class="keyword">array</span>(
+    ...
+    <span class="string">'urlManager'</span>=&gt;<span class="keyword">array</span>(
+        <span class="string">'urlFormat'</span>=&gt;<span class="string">'path'</span>,
+        <span class="string">'rules'</span>=&gt;<span class="keyword">array</span>(
+            <span class="string">'&lt;controller:\w+&gt;/&lt;id:\d+&gt;'</span>=&gt;<span class="string">'&lt;controller&gt;/view'</span>,
+            <span class="string">'&lt;controller:\w+&gt;/&lt;action:\w+&gt;/&lt;id:\d+&gt;'</span>=&gt;<span class="string">'&lt;controller&gt;/&lt;action&gt;'</span>,
+            <span class="string">'&lt;controller:\w+&gt;/&lt;action:\w+&gt;'</span>=&gt;<span class="string">'&lt;controller&gt;/&lt;action&gt;'</span>,
+        ),
+    ),
+    ...
+),
+</code></pre><h3 id="创建模块">创建模块</h3>
+<p>进入 shell 模式   </p>
+<pre><code>cd ../webapp/protected   
+yiic<span class="preprocessor">.bat</span> shell config\main<span class="preprocessor">.php</span>   
+</code></pre><p>在 shell 模式下输入   </p>
+<pre><code><span class="class"><span class="keyword">module</span> <span class="title">sdk</span></span>
+</code></pre><p>在 /protected/module 目录下生成 sdk 文件夹</p>
+<pre><code>/<span class="keyword">protected</span>/<span class="keyword">module</span>/sdk
+│  SdkModule.php
+│
+├─components
+├─controllers
+│      DefaultController.php
+│
+├─messages
+├─models
+└─views
+    ├─<span class="keyword">default</span>
+    │      <span class="keyword">index</span>.php
+    │
+    └─layouts
+</code></pre><p>模块嵌套<br>建立两个 module </p>
+<pre><code><span class="class"><span class="keyword">module</span> <span class="title">sdk</span></span>
+<span class="class"><span class="keyword">module</span> <span class="title">ios</span></span>
+</code></pre><p>然后把 ios 文件移动到 sdk/modules/ 目录下<br>修改 protected/config/main.php 文件  </p>
+<pre><code><span class="string">'modules'</span>=&gt;<span class="keyword">array</span>(
+
+    <span class="string">'sdk'</span> =&gt; <span class="keyword">array</span>(
+        <span class="string">'modules'</span> =&gt; <span class="keyword">array</span>(
+            <span class="string">'ios'</span>,
+        ),
+    ),
+)
+</code></pre><p>get 模式   </p>
+<pre><code><span class="symbol">http:</span>/<span class="regexp">/127.0.0.1/webapp</span><span class="regexp">/index.php?r=sdk/sdk</span>   
+</code></pre><p>path 模式   </p>
+<pre><code><span class="symbol">http:</span>/<span class="regexp">/127.0.0.1/webapp</span><span class="regexp">/index.php/sdk</span><span class="regexp">/sdk</span>
+</code></pre><p>就可以访问 这个嵌套模块了</p>
+<p>End</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-01-15T14:56:19.000Z"><a href="/2014/01/15/sublime_text_add_open_with_sublime_text_menu/">1月 15 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/01/15/sublime_text_add_open_with_sublime_text_menu/">Sublime Text 2 右键菜单设置</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>sublime text 2 是个很性感的编辑器  呵呵~<br>如果是安装版 通常会自动添加 右键菜单 Open with Sublime Text 2<br>但是如果是用的绿色版 就没有这个福利了<br>沒有福利咱们自己动手丰衣足食<br>1.添加右键菜单<br>win+r 启动运行 输入 Regedit<br>找到 ‘HKEY<em>CLASSES<em>ROOT\*\shell’<br>添加<strong>新建项</strong>“Open With Sublime Text 2”,再在Open With Sublime Text 2 下面<br><strong>新建项</strong>command<br>在command下面新建 <strong>字符串值</strong>
+</em></em>数据填写</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>D:\tools\Sublime Text <span class="number">2</span>\sublime_text.exe <span class="string">"%1"</span>
+</pre></td></tr></table></figure>
+
+<p>保存.完成添加右键菜单<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/01/15/sublime_text_add_open_with_sublime_text_menu/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-01-03T00:41:51.000Z"><a href="/2014/01/03/as-colortransform/">1月 3 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/01/03/as-colortransform/">AS-colortransform</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>给MovieClip设置颜色<br>首先要导入两个类;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>import flash.geom.colortransform;  
+import flash.geom.transform;
+</pre></td></tr></table></figure>
+
+<p>创建两个实例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="keyword">var</span> colortf:colortransform = <span class="keyword">new</span> colortransform();
+<span class="keyword">var</span> tf:transform = <span class="keyword">new</span> transform(要应用颜色的MovieClip);
+
+<span class="comment">//设置colortransform实例的颜色</span>
+colortf.color = <span class="number">0x00ffff</span>;
+<span class="comment">//设置colortransform属性</span>
+tf.colortransform = colortf;
+</pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-12-28T07:49:29.000Z"><a href="/2013/12/28/scaleform-notice/">12月 28 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/12/28/scaleform-notice/">Scaleform 注意事项</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>本文章用来记录as移植到scaleform mobile(文中简称SF)的问题汇总 <strong>不定期更新</strong>  </p>
+<h3 id="Sprite">Sprite</h3>
+<ul>
+<li><strong>startDrag</strong>和<strong>stopDrag</strong>要成对使用  <pre><code>  如果没有执行stopDrag操作,会阻挡之后的点击事件.  
+</code></pre></li>
+</ul>
+<h3 id="Session">Session</h3>
+<ul>
+<li>尽量不要给刚刚add到舞台对象添加事件 <strong>addEventListener</strong>  <pre><code>  给刚刚添加到舞台的对象添加事件,容易出现加载失败的现象,但可以设置<span class="function">startDrag()</span>.  
+</code></pre></li>
+</ul>
+<h3 id="alpha">alpha</h3>
+<ul>
+<li>SF中对alpha进行浮点值赋值和AS值会用差额  <pre><code>  比如:同样对alpha进行<span class="number">0.1</span>的自增 flash 是 <span class="number">0.099</span>XXXX SF 是 <span class="number">0.10000</span>XXX  
+  推荐在实际应用时使用 <span class="built_in">Number</span> 的_toFixed_方法进行四舍五入后使用  
+</code></pre></li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-12-16T00:38:07.000Z"><a href="/2013/12/16/test/">12月 16 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/12/16/test/">第一篇MarkDown文章</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>发一篇MarkDown的文章试试  </p>
+<p>这是使用 Sublime Text 2 MarkDown写的  </p>
+<ul>
+<li>sublime Text 2快捷键<br>1.Ctrl+i <em>斜体你好</em>  <em>abc</em><br>2.Ctrl+b <strong>粗体你好</strong><br>3.Ctrl+super+k 超链接<a href="http://www.jaoye.com" target="_blank">主页</a><br>4.super+shift+k 图片<img src="http://www.baidu.com/img/bdlogo.gif" alt=""><br>5.ctrl+shift+. = 添加引用<br>6.ctrl+shift+, = 刪除引用<br>7.ctrl+123456 设置6级不同的标题<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/12/16/test/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:jaoye.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/MarkDown/">MarkDown</a><small>1</small></li>
+  
+    <li><a href="/tags/Scaleform/">Scaleform</a><small>1</small></li>
+  
+    <li><a href="/tags/yii/">yii</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 JaoYE
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'jaoye';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
